@@ -113,7 +113,10 @@ pub unsafe fn lean_string_utf8_next_fast(s: b_lean_obj_arg, i: b_lean_obj_arg) -
 extern "C" {
     pub fn lean_utf8_strlen(str: *const u8) -> usize;
     pub fn lean_utf8_n_strlen(str: *const u8, n: usize) -> usize;
+    pub fn lean_mk_string_unchecked(s: *const u8, sz: usize, len: usize) -> lean_obj_res;
     pub fn lean_mk_string_from_bytes(s: *const u8, sz: usize) -> lean_obj_res;
+    pub fn lean_mk_string_from_bytes_unchecked(s: *const u8, sz: usize) -> lean_obj_res;
+    pub fn lean_mk_ascii_string_unchecked(s: *const u8) -> lean_obj_res;
     pub fn lean_mk_string(s: *const u8) -> lean_obj_res;
     pub fn lean_string_push(s: lean_obj_arg, c: u32) -> lean_obj_res;
     pub fn lean_string_append(s1: lean_obj_arg, s2: lean_obj_arg) -> lean_obj_res;

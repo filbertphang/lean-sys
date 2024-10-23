@@ -60,7 +60,9 @@ fn main() {
     } else if cfg!(feature = "extern") {
         println!("cargo:rustc-link-search={}/lib/lean", lean_dir.display());
         println!("cargo:rustc-link-search={}/lib", lean_dir.display());
-        for lib in ["Lean", "Init", "leanrt", "leancpp", "gmp", "c++", "c++abi"] {
+        for lib in [
+            "Lean", "Init", "Std", "leanrt", "leancpp", "gmp", "c++", "c++abi",
+        ] {
             println!("cargo:rustc-link-lib=static={lib}");
         }
     } else {
@@ -72,6 +74,9 @@ fn main() {
                 println!("cargo:rustc-link-lib=static={lib}");
             }
             println!("cargo:rustc-link-arg=-Wl,--end-group");
+        }
+        for lib in ["Std"] {
+            println!("cargo:rustc-link-lib=static={lib}");
         }
         for lib in ["Lake", "c++", "c++abi"] {
             println!("cargo:rustc-link-lib=static={lib}");
