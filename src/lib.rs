@@ -427,6 +427,11 @@ pub unsafe fn lean_is_exclusive(o: *mut lean_object) -> bool {
 }
 
 #[inline]
+pub unsafe fn lean_is_exclusive_obj(o: *mut lean_object) -> u8 {
+    lean_is_exclusive(o) as u8
+}
+
+#[inline]
 pub unsafe fn lean_is_shared(o: *mut lean_object) -> bool {
     //TODO: likely... or, why not just relaxed_rc_load(o) > 1?
     if lean_is_st(o) {
@@ -490,8 +495,6 @@ extern "C" {
     pub fn lean_inc_ref_n_cold(o: *mut lean_object, n: c_uint);
     #[cold]
     pub fn lean_dec_ref_cold(o: *mut lean_object);
-    /** Just free memory */
-    pub fn lean_dealloc(o: *mut lean_object);
     pub fn lean_mark_mt(o: *mut lean_object);
     pub fn lean_mark_persistent(o: *mut lean_object);
 }
