@@ -32,6 +32,8 @@ fn main() {
     };
 
     if !cfg!(feature = "static") {
+        println!("type 1");
+
         // Step 2: check libleanshared.so/libleanshared.dylib/libleanshared.dll is actually there, just for cleaner error messages
         let mut shared_lib = lib_dir.clone();
         let exists = if cfg!(target_os = "windows") {
@@ -58,6 +60,8 @@ fn main() {
         println!("cargo:rustc-link-lib=leanshared");
         println!("cargo:rustc-link-arg=-Wl,-rpath,{}", lib_dir.display());
     } else if cfg!(feature = "extern") {
+        println!("type 2");
+
         println!("cargo:rustc-link-search={}/lib/lean", lean_dir.display());
         println!("cargo:rustc-link-search={}/lib", lean_dir.display());
         for lib in [
@@ -66,6 +70,8 @@ fn main() {
             println!("cargo:rustc-link-lib=static={lib}");
         }
     } else {
+        println!("type 3");
+
         println!("cargo:rustc-link-search={}/lib", lean_dir.display());
         println!("cargo:rustc-link-search={}/lib/lean", lean_dir.display());
         for libs in [["Lean", "leancpp"], ["Init", "leanrt"]] {
